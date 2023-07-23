@@ -1,0 +1,35 @@
+- hosts: master
+  become: yes
+  # connection: kubectl
+  tasks:
+    # - name: Necessary to do for the kubectl to work
+    #   shell:
+    #     cmd: |
+    #       mkdir -p $HOME/.kube
+    #       sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+    #       sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+    # - name: Creating new namespace prod
+    #   command: kubectl create namespace prod
+
+    - name: Creates directory
+      file:
+        path: /prod/k8s_manifest/deployments
+        state: directory
+
+    - name: copying backend file with playbook
+      copy:
+        src: ../k8s_manifest/prod/deployments/back_end_prod_deployment.yml
+        dest: /prod/k8s_manifest/deployments/back_end_prod_deployment.yaml
+
+    - name: Deploying backend deployment
+      command: kubectl apply -f /prod/k8s_manifest/deployments/back_end_prod_deployment.yaml -n prod
+
+    - name: copying backend file with playbook
+      copy:
+        src: ../k8s_manifest/prod/deployments/front_end_prod_deployment.yml
+        dest: /prod/k8s_manifest/deployments/front_end_prod_deployment.yaml
+  
+    - name: Deploying frontend deployment
+      command: kubectl apply -f /prod/k8s_manifest/deployments/front_end_prod_deployment.yaml -n prod
+    

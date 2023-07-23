@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cloud-backend
+spec:
+  selector:
+    matchLabels:
+      app: cloud-backend
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        env: prod
+        tier: backend 
+        app: cloud-backend
+    spec:
+      containers:
+      - name: cloud-airline-backend
+        image: kartiksaxena2000/cloud_airlines_backend_linux:1.0.0
+        ports:
+        - containerPort: 80

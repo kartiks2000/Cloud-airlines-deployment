@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cloud-frontend
+spec:
+  selector:
+    matchLabels:
+      app: cloud-frontend
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        env: prod
+        tier: frontend 
+        app: cloud-frontend
+    spec:
+      containers:
+      - name: cloud-airlines-frontend
+        image: kartiksaxena2000/cloud_airlines_webapp_linux:1.0.0
+        ports:
+        - containerPort: 80
