@@ -13,8 +13,8 @@ terraform {
 
 # Configure the AWS Provider
 provider "aws" {
-  access_key = "AKIAWF5VR7XZG3AUIEMV"
-  secret_key = "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"
+  access_key = "AKIAXBPVPXK52STGG2JO"
+  secret_key = "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"
 }
 
 # VPC
@@ -267,7 +267,7 @@ resource "aws_instance" "k8s_control_plane" {
     aws_security_group.sg_common.id,
     aws_security_group.sg_flannel.id,
     aws_security_group.sg_control_plane.id,
-    aws_security_group.sg_access_application
+    aws_security_group.sg_access_application.id,
   ]
   root_block_device {
     volume_type = "gp2"
