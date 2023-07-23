@@ -32,4 +32,17 @@
   
     - name: Deploying frontend deployment
       command: kubectl apply -f /prod/k8s_manifest/deployments/front_end_prod_deployment.yaml -n prod
+
+    - name: Creates directory
+      file:
+        path: /prod/k8s_manifest/services
+        state: directory
+
+    - name: copying frontend service file
+      copy:
+        src: ../k8s_manifest/prod/services/front_end_service_prod.yml
+        dest: /prod/k8s_manifest/services/front_end_service_prod.yml 
+
+    - name: creating service
+      command: kubectl apply -f /prod/k8s_manifest/services/front_end_service_prod.yml -n prod
     

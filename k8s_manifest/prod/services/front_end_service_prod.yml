@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: front-end-service-prod
+  namespace: prod
+spec:
+  type: NodePort
+  ports:
+    - name: http
+      protocol: TCP
+      port: 8080
+      targetPort: 80
+      nodePort: 30080
+  selector:
+    env: prod
+    app: cloud-frontend
+    tier: frontend

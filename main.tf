@@ -137,6 +137,29 @@ resource "aws_security_group" "sg_common" {
   }
 }
 
+resource "aws_security_group" "sg_access_application" {
+  name = "sg_access_application"
+  vpc_id      = aws_vpc.k8s_vpc.id
+  tags = { 
+    Name = "Port for the end user to access the application"
+  }
+
+  ingress {
+    description = "Allow external access"
+    protocol = "tcp"
+    from_port = 30080
+    to_port = 30080
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
 resource "aws_security_group" "sg_control_plane" {
   name = "kubeadm-control-plane security group"
   vpc_id      = aws_vpc.k8s_vpc.id
@@ -244,6 +267,7 @@ resource "aws_instance" "k8s_control_plane" {
     aws_security_group.sg_common.id,
     aws_security_group.sg_flannel.id,
     aws_security_group.sg_control_plane.id,
+    aws_security_group.sg_access_application
   ]
   root_block_device {
     volume_type = "gp2"
