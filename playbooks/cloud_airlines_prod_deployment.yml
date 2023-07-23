@@ -2,15 +2,15 @@
   become: yes
   # connection: kubectl
   tasks:
-    # - name: Necessary to do for the kubectl to work
-    #   shell:
-    #     cmd: |
-    #       mkdir -p $HOME/.kube
-    #       sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-    #       sudo chown $(id -u):$(id -g) $HOME/.kube/config
+    - name: Necessary to do for the kubectl to work (run only once, else it will give error)
+      shell:
+        cmd: |
+          mkdir -p $HOME/.kube
+          sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+          sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
-    # - name: Creating new namespace prod
-    #   command: kubectl create namespace prod
+    - name: Creating new namespace prod (run only once, else it will give error)
+      command: kubectl create namespace prod
 
     - name: Creates directory
       file:
