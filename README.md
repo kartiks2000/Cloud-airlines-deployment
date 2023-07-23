@@ -24,11 +24,10 @@ Pre-requisites to run the repo:
 
 `sudo ansible-playbook -u ubuntu -i ./k8s_nodes.yaml --private-key private-key.pem playbooks/k8s_worker_playbook.yml`
 
-
-Note: To change the number of workers, go to variables.tf file and change the dafault value of `worker_nodes_count` to number of workers you want
-
 # Prod deployment
 `sudo ansible-playbook -u ubuntu -i ./k8s_nodes.yaml --private-key private-key.pem playbooks/cloud_airlines_prod_deployment.yml`
 
 # To access front end
 `http://<master-node-public-ip>:30080`
+
+Note: To change the number of workers, go to variables.tf file and change the dafault value of `worker_nodes_count` to number of workers you want
