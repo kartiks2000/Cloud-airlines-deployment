@@ -40,4 +40,10 @@ Pre-requisites to run the repo:
 3) Access Prometheus using:
     `http://<master-node-public-ip>:31000`
 
+# To configure Grafana
+`sudo ansible-playbook -u ubuntu -i ./k8s_nodes.yaml --private-key private-key.pem playbooks/grafana_prod_playbook.yml`
+
+# To access grafana
+`http://<master-node-public-ip>:3000`
+
 Note: To change the number of workers, go to variables.tf file and change the dafault value of `worker_nodes_count` to number of workers you want
