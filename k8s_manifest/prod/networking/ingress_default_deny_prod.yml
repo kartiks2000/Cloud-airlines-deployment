@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1 
 kind: NetworkPolicy 
 metadata:   
-  name: ingress-deafult-deny-prod
+  name: ingress-default-deny-prod
   namespace: prod
 spec:
   podSelector: {}

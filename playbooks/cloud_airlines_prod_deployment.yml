@@ -76,8 +76,8 @@
 
     # - name: copying database service file
     #   copy:
-    #     src: ../k8s_manifest/prod/networking/ingress_dafault_deny_prod.yml
-    #     dest: /prod/k8s_manifest/networking/ingress_dafault_deny_prod.yml
+    #     src: ../k8s_manifest/prod/networking/ingress_default_deny_prod.yml
+    #     dest: /prod/k8s_manifest/networking/ingress_default_deny_prod.yml
 
     # - name: creating network policy
-    #   command: kubectl apply -f /prod/k8s_manifest/networking/ingress_dafault_deny_prod.yml -n prod
+    #   command: kubectl apply -f /prod/k8s_manifest/networking/ingress_default_deny_prod.yml -n prod
