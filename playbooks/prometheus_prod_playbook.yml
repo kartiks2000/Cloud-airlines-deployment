@@ -1,0 +1,47 @@
+- hosts: master
+  become: yes
+  tasks:
+    - name: Creating new namespace prod (run only once, else it will give error)
+      command: kubectl create namespace monitoring-prod
+
+    - name: Creates directory
+      file:
+        path: /prod/k8s_manifest/cluster_roles
+        state: directory
+
+    - name: copying clusterRole file with playbook
+      copy:
+        src: ../k8s_manifest/prod/cluster_roles/clusterRole.yml
+        dest: /prod/k8s_manifest/cluster_roles/clusterRole.yml
+
+    - name: creating clusterRole
+      command: kubectl apply -f /prod/k8s_manifest/cluster_roles/clusterRole.yml
+
+    - name: Creates directory
+      file:
+        path: /prod/k8s_manifest/config_maps
+        state: directory
+
+    - name: copying config map file with playbook
+      copy:
+        src: ../k8s_manifest/prod/config_maps/config_map.yml
+        dest: /prod/k8s_manifest/config_maps/config_map.yml
+
+    - name: creating config map
+      command: kubectl apply -f /prod/k8s_manifest/config_maps/config_map.yml
+
+    - name: copying prometheus deployment file with playbook
+      copy:
+        src: ../k8s_manifest/prod/deployments/prometheus_prod_deployment.yml
+        dest: /prod/k8s_manifest/deployments/prometheus_prod_deployment.yaml
+
+    - name: Deploying prometheus deployment
+      command: kubectl apply -f /prod/k8s_manifest/deployments/prometheus_prod_deployment.yaml
+
+    - name: copying prometheus service file
+      copy:
+        src: ../k8s_manifest/prod/services/prometheus_service_prod.yml
+        dest: /prod/k8s_manifest/services/prometheus_service_prod.yml
+
+    - name: creating network policy
+      command: kubectl apply -f /prod/k8s_manifest/services/prometheus_service_prod.yml -n monitoring-prod

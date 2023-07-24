@@ -53,7 +53,7 @@
     - name: creating service
       command: kubectl apply -f /prod/k8s_manifest/services/front_end_service_prod.yml -n prod
 
-    - name: copying backend deployment file
+    - name: copying backend service file
       copy:
         src: ../k8s_manifest/prod/services/backend_service_prod.yml
         dest: /prod/k8s_manifest/services/backend_service_prod.yml

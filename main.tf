@@ -13,8 +13,8 @@ terraform {
 
 # Configure the AWS Provider
 provider "aws" {
-  access_key = "AKIA6OXYT7ASAQHWWO7Q"
-  secret_key = "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"
+  access_key = "AKIAZPWBXWFVV3ANRMFO"
+  secret_key = "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"
 }
 
 # VPC
@@ -233,6 +233,22 @@ resource "aws_security_group" "sg_worker_nodes" {
   }
 }
 
+resource "aws_security_group" "sg_prometheus" {
+  name = "prometheus security group"
+  vpc_id      = aws_vpc.k8s_vpc.id
+  ingress {
+    description = "Allow prometheus dashboard"
+    protocol = "tcp"
+    from_port = 31000
+    to_port = 31000
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = { 
+    Name = "prometheus SG"
+  }
+}
+
 
 # Key pair
 resource "tls_private_key" "private_key" {
@@ -268,6 +284,7 @@ resource "aws_instance" "k8s_control_plane" {
     aws_security_group.sg_flannel.id,
     aws_security_group.sg_control_plane.id,
     aws_security_group.sg_access_application.id,
+    aws_security_group.sg_prometheus.id,
   ]
   root_block_device {
     volume_type = "gp2"

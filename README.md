@@ -30,4 +30,14 @@ Pre-requisites to run the repo:
 # To access front end
 `http://<master-node-public-ip>:30080`
 
+# To configure prometheus
+`sudo ansible-playbook -u ubuntu -i ./k8s_nodes.yaml --private-key private-key.pem playbooks/prometheus_prod_playbook.yml`
+
+# Once premetheus playbook is ran, we then need to inside the master node and run the below commands:
+1) `kubectget pods --namespace=monitoring-prod`
+2) Paste the name of the pod resulted from above command:
+    `kubectl port-forward <pod-name> 9000:9090 -n monitoring-prod`
+3) Access Prometheus using:
+    `http://<master-node-public-ip>:31000`
+
 Note: To change the number of workers, go to variables.tf file and change the dafault value of `worker_nodes_count` to number of workers you want
