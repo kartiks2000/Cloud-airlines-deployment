@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cloud-database
+spec:
+  selector:
+    matchLabels:
+      app: cloud-database
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        env: prod
+        tier: database 
+        app: cloud-database
+    spec:
+      containers:
+      - name: cloud-airline-database
+        image: nginx:1.14.2
+        ports:
+        - containerPort: 80

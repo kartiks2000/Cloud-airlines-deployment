@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: database-service-prod
+  namespace: prod
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      protocol: TCP
+      port: 5500
+      targetPort: 80
+  selector:
+    env: prod
+    app: cloud-database
+    tier: database
