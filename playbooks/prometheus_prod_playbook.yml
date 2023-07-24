@@ -43,5 +43,5 @@
         src: ../k8s_manifest/prod/services/prometheus_service_prod.yml
         dest: /prod/k8s_manifest/services/prometheus_service_prod.yml
 
-    - name: creating network policy
+    - name: creating prometheus service
       command: kubectl apply -f /prod/k8s_manifest/services/prometheus_service_prod.yml -n monitoring-prod

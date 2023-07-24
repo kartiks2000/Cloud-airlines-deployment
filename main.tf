@@ -13,8 +13,8 @@ terraform {
 
 # Configure the AWS Provider
 provider "aws" {
-  access_key = "AKIAYUWAI4EADTVGOERI"
-  secret_key = "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"
+  access_key = "AKIARJ2S5IYBEWNOQ44U"
+  secret_key = "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"
 }
 
 # VPC
@@ -233,8 +233,8 @@ resource "aws_security_group" "sg_worker_nodes" {
   }
 }
 
-resource "aws_security_group" "sg_prometheus" {
-  name = "prometheus security group"
+resource "aws_security_group" "sg_prometheus_grafana" {
+  name = "prometheus and grafana security group"
   vpc_id      = aws_vpc.k8s_vpc.id
   ingress {
     description = "Allow prometheus dashboard"
@@ -244,8 +244,16 @@ resource "aws_security_group" "sg_prometheus" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  ingress {
+    description = "Allow prometheus dashboard"
+    protocol = "tcp"
+    from_port = 3000
+    to_port = 3000
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
   tags = { 
-    Name = "prometheus SG"
+    Name = "prometheus grafana SG"
   }
 }
 
@@ -284,7 +292,7 @@ resource "aws_instance" "k8s_control_plane" {
     aws_security_group.sg_flannel.id,
     aws_security_group.sg_control_plane.id,
     aws_security_group.sg_access_application.id,
-    aws_security_group.sg_prometheus.id,
+    aws_security_group.sg_prometheus_grafana.id,
   ]
   root_block_device {
     volume_type = "gp2"
