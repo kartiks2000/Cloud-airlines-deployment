@@ -47,6 +47,7 @@ Pre-requisites to run the repo:
 `http://<master-node-public-ip>:3000`
 
 # username and password both are admin
-# add prometheous data source using endpoint `http://<master-node-public-ip>:30080`
+# add prometheous data source using endpoint 
+`http://<master-node-public-ip>:30080`
 
 Note: To change the number of workers, go to variables.tf file and change the dafault value of `worker_nodes_count` to number of workers you want
