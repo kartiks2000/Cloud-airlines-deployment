@@ -27,6 +27,10 @@ Pre-requisites to run the repo:
 # Prod deployment
 `sudo ansible-playbook -u ubuntu -i ./k8s_nodes.yaml --private-key private-key.pem playbooks/cloud_airlines_prod_deployment.yml`
 
+# Master command to setup and run Kubernetes cluster and deploy cloud airline application playbooks (Run instead of above 4 playbooks)
+`sudo ansible-playbook -u ubuntu -i ./k8s_nodes.yaml --private-key private-key.pem playbooks/k8s_dependency_playbook.yml playbooks/k8s_master_playbook.yml playbooks/k8s_worker_playbook.yml playbooks/cloud_airlines_prod_deployment.yml`
+
+
 # To access front end
 `http://<master-node-public-ip>:30080`
 
