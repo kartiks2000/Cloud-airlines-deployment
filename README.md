@@ -40,7 +40,7 @@ Pre-requisites to run the repo:
 # Once premetheus playbook is executed, we then need to inside the master node and run the below commands:
 1) `kubectl get pods --namespace=monitoring-prod`
 2) Paste the name of the pod resulted from above command:
-    `kubectl port-forward <pod-name> 9000:9090 -n monitoring-prod`
+    `kubectl port-forward <pod-name> 9000:9090 -n monitoring-prod &` 
 3) Access Prometheus using:
     `http://<master-node-public-ip>:31000`
 
@@ -50,8 +50,25 @@ Pre-requisites to run the repo:
 # To access grafana
 `http://<master-node-public-ip>:3000`
 
+# Grafana dashboard ID -> 12740
+
 # username and password both are admin
 # add prometheous data source using endpoint 
 `http://<master-node-public-ip>:31000`
 
+
+# To setup KubeBench pod
+`sudo ansible-playbook -u ubuntu -i ./k8s_nodes.yaml --private-key private-key.pem playbooks/kubebench_prod.yml`
+
+# Get Pods
+`kubectl get pods -n prod`
+
+# To see KubeBench logs
+`kubectl logs <KubeBench-Pod-name> -n prod`
+
+
 Note: To change the number of workers, go to variables.tf file and change the dafault value of `worker_nodes_count` to number of workers you want
+
+
+
+

@@ -1,0 +1,15 @@
+- hosts: master
+  become: yes
+  tasks:
+    - name: Creates directory
+      file:
+        path: /prod/k8s_manifest/pods
+        state: directory
+
+    - name: copying pod file
+      copy:
+        src: ../k8s_manifest/prod/pods/kubebench_pod.yml
+        dest: /prod/k8s_manifest/pods/kubebench_pod.yml
+
+    - name: creating pod
+      command: kubectl apply -f /prod/k8s_manifest/pods/kubebench_pod.yml -n prod
