@@ -12,10 +12,10 @@ terraform {
 }
 
 # Configure the AWS Provider
-provider "aws" {
-  access_key = "AKIARJ2S5IYBEWNOQ44U"
-  secret_key = "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"
-}
+# provider "aws" {
+#   access_key = ""
+#   secret_key = ""
+# }
 
 # VPC
 resource "aws_vpc" "k8s_vpc" {
